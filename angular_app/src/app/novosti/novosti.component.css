@@ -1,0 +1,16 @@
+
+h1{
+    text-align: center;
+}
+h1.heading {
+    color: #fff;
+    font-size: 3.5em;
+    font-weight: 900;
+    margin: 0 0 0.5em;
+    color: #505050;
+}
+
+#rowNovost:hover{
+  cursor: pointer;
+  box-shadow: 1px 1px 17px -8px rgba(0,0,0,0.61);
+}

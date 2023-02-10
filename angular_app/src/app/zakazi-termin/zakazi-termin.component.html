@@ -1,0 +1,223 @@
+<div class="content-wrapper" style="min-height: 2080.4px;">
+  <section class="content-header">
+    <h1 class="heading">
+      Zakaži termin
+    </h1>
+  </section>
+  <section class="content">
+
+    <div class="content" style="width: 70%; height: auto; margin: 0 auto; text-align: center; position: relative;" *ngIf="preglediKojiCekajuNaOdobrenje.length <= 0 && nadolazeciPregledi.length <= 0 && prethodniTermini.length <= 0">
+    <h2>U potpunosti iskoristite praktičnost
+     eAmbulanta sistema te koristite pogodnost zakazivanja termina u vašoj ambulanti putem interneta. Sve što trebate uraditi jeste kliknuti na dugmić
+    "Novi zahtjev za termin" nakon čega će vam se otvoriti prozor na kojem ćete odabrati doktora kojeg želite da vas pregleda, po potrebi unijeti napomenu za doktora te odabrati željeni datum
+     i vrijeme. Ukoliko imate bilo kakvih nejasnoća pređite na stranicu "Često postavljena pitanja", a ukoliko ni tamo ne pronađete potrebne informacije pređite na stranicu
+    "Kontaktirajte nas" gdje ćete dobiti smjernice na kanale preko kojih možete potražiti dodatnu pomoć.</h2>
+      <br>
+    </div>
+
+    <h2 style="float: left; margin-right: 1%; margin-bottom: 0; height: 50px; vertical-align: middle;" *ngIf="preglediKojiCekajuNaOdobrenje.length <= 0 && nadolazeciPregledi.length <= 0 && prethodniTermini.length <= 0">Pokušajte: </h2>
+    <button id="btnDodajNoviTermin" (click)="dodajNoviTerminForm()" type="button" class="btn btn-block bg-gradient-success" style="max-width: 200px; margin-bottom: 3vh; height: 50px; display: block">Novi zahtjev za termin
+    </button>
+    <div id="divNoviTermin" class="container-fluid" style="display: none; margin-bottom: 3vh">
+      <div class="card card-primary">
+        <div class="card-header" style="background-color: #00A7AA">
+          <h3 class="card-title" style="float: left;">Zahtjev za termin</h3>
+          <button type="button" (click)="dodajNoviTerminForm()" class="btn btn-block btn-danger btn-sm" style="float: right; width: 30px; margin-top: 0">
+            <i class="fa fa-times" aria-hidden="true"></i>
+          </button>
+        </div>
+        <form id="formZakaziTermin" [formGroup]="authService.formModelZakaziTermin" autocomplete="off" (submit)="onSubmit()">
+          <div id="formCardBody" class="card-body">
+            <div class="form-group required">
+              <label style="margin-right: 10px">Odaberite doktora:</label>
+              <select formControlName="doktorId">
+                <option *ngIf="doktori == null" value="" disabled selected>Nema dostupnih doktora</option>
+                <option *ngFor="let dok of doktori; let indexOfRow=index;" [value]="dok.id">{{doktori[indexOfRow].titula}} {{doktori[indexOfRow].prezime}} {{doktori[indexOfRow].ime}}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Dodajte napomenu:</label>
+              <textarea class="form-control form-control-border" formControlName="napomena" rows="3" placeholder="Ukoliko imate posebne napomene za doktora upišite ovdje..." style="border: grey 1px solid"></textarea>
+            </div>
+            <div *ngIf="authService.formModelZakaziTermin.value.doktorId != null" class="form-group required">
+              <label>Odaberite datum:</label>
+              <input (click)="emptyMoguceVrijemePregleda()" (change)="loadPreglediZaDatum()" type="date" class="form-control form-control-border" formControlName="datum" [min] = this.minDateString>
+            </div>
+            <div *ngIf="authService.formModelZakaziTermin.value.doktorId != null && this.moguceVrijemePregleda != null" class="form-group required">
+              <label>Odaberite vrijeme:</label>
+              <select (click)="loadPreglediZaDatum()" style="width: 100%" formControlName="vrijeme">
+                <option [value]="vr" *ngFor="let vr of moguceVrijemePregleda; let indexOfRow=index;">{{vr}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button type="submit" class="btn btn-block btn-primary btn-sm" [disabled]="!authService.formModelZakaziTermin.valid" style="width: 20%; float: left; background-color: #00A7AA;">Pošalji zahtjev</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div *ngIf="terminUskoro != null" class="container-fluid" style="margin-bottom: 2vh">
+      <div class="row">
+      <div class="info-box" style="border: 2px red solid">
+        <span class="info-box-icon bg-danger"><i class="fa fa-exclamation" aria-hidden="true"></i></span>
+        <div class="info-box-content">
+          <span class="info-box-text">Termin uskoro</span>
+          <span class="info-box-number" style="float: left;">Datum: {{terminUskoro.datum}}
+            <br>Vrijeme: {{terminUskoro.vrijeme}}
+          <button (click)="pozivDeletePregled(terminUskoro.id)" type="button" class="btn btn-block bg-gradient-danger btn-lg" style="float: right; width: fit-content">
+            Otkaži
+          </button></span>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <div *ngIf="preglediKojiCekajuNaOdobrenje.length > 0" class="container-fluid" style="margin-bottom: 2vh">
+      <div class="row">
+        <div class="card" style="width: 100%">
+          <div class="card-header" style="background-color: #1fb4b9">
+            <h3 class="card-title" style="color: white">Termini koji čekaju na odobrenje</h3>
+          </div>
+          <div class="card-body">
+            <table class="table table-striped">
+              <thead>
+              <tr>
+                <th>Termin</th>
+                <th>Napomena</th>
+                <th>Datum i vrijeme</th>
+                <th>Odobreno</th>
+                <th style="width: 40px">Otkaži</th>
+              </tr>
+              </thead>
+              <tbody id="terminiPacijentTable">
+              <tr id="teriminiPacijentRow" style="width: 100%;" *ngFor="let pregled of preglediKojiCekajuNaOdobrenje; let indexOfRow = index;">
+                <td>
+                  Termin {{pregled.datum}}
+                </td>
+                <td>
+                  <a *ngIf="pregled.napomena == ''" disabled style="width: 90%">Nema napomene</a>
+                  <textarea *ngIf="pregled.napomena != ''" disabled style="width: 90%">{{pregled.napomena}}</textarea>
+                </td>
+                <td>
+                  {{pregled.datum}} {{pregled.vrijeme}}
+                </td>
+                <td>
+                  Čeka na odobrenje
+                </td>
+                <td>
+                  <button (click)="pozivDeletePregled(pregled.id)" type="button" class="btn btn-block bg-gradient-danger btn-lg">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                  </button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="nadolazeciPregledi.length > 0" class="container-fluid" style="margin-bottom: 2vh">
+      <div class="row">
+      <div class="card card-primary collapsed-card" style="width: 100%">
+        <div class="card-header" style="background-color: #1fb4b9">
+          <h3 class="card-title">Nadolazeći termini</h3>
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th>Termin</th>
+              <th>Napomena</th>
+              <th>Datum i vrijeme</th>
+              <th style="width: 40px">Otkaži</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr style="width: 100%;" *ngFor="let pregled of nadolazeciPregledi; let indexOfRow = index;">
+              <td>
+                Termin {{pregled.datum}}
+              </td>
+              <td>
+                <a *ngIf="pregled.napomena == ''" disabled style="width: 90%">Nema napomene</a>
+                <textarea *ngIf="pregled.napomena != ''" disabled style="width: 90%">{{pregled.napomena}}</textarea>
+              </td>
+              <td>
+                {{pregled.datum}} {{pregled.vrijeme}}
+              </td>
+              <td>
+                <button (click)="pozivDeletePregled(pregled.id)" type="button" class="btn btn-block bg-gradient-danger btn-lg">
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <div *ngIf="prethodniTermini.length > 0" class="card card-primary collapsed-card" style="width: 100%">
+      <div class="card-header" style="background-color: #1fb4b9">
+        <h3 class="card-title">Lista prethodnih termina</h3>
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body p-0">
+        <table class="table table-sm" id="tabelaprethodniTermini">
+          <tbody>
+          <tr *ngFor="let pregled of prethodniTermini; let indexOfRow=index;" style="float: left; padding: 1%; width: 100%; margin-top: 1%; border-bottom: #d4dbd2 1px solid">
+            <div class="card card-primary collapsed-card">
+              <div class="card-header">
+                <h3 class="card-title" style="margin: 0;">Pregled {{pregled.datum}} {{pregled.vrijeme}}</h3>
+                <input type="text" hidden style="width: 100%" value="termin.naziv">
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body" style="display: none; padding: 0.75rem;">
+                <div class="content">
+                  <div class="card card-primary" style=" border-radius: 20px;">
+                    <div class="card-header"  style=" border-radius: 20px!important;">
+                      <h3 class="card-title" style="margin: 0;">Stavke pregleda</h3>
+                    </div>
+
+                    <div class="card-body"  style=" border-radius: 20px;">
+                      <strong><i class="fa fa-calendar" aria-hidden="true" style="margin-right: 0.25rem;"></i>Datum i vrijeme pregleda</strong>
+                      <p class="text-muted">
+                        Ovaj pregled obavljen je na datum {{pregled.datum}} u {{pregled.vrijeme}} časova.
+                      </p>
+                      <hr>
+                      <strong><i class="fa fa-exclamation" aria-hidden="true" style="margin-right: 0.25rem;"></i>Vaša napomena</strong>
+                      <p class="text-muted">Prilikom slanja zahtjeva za termin, doktoru ste poslali sljedeću napomenu: {{pregled.napomena}}</p>
+                      <hr>
+                      <strong><i class="fas fa-pencil-alt mr-1"></i>Odgovor doktora</strong>
+                      <p class="text-muted">Prilikom odobravanja termina doktor je dodao sljedeći odgovor: {{pregled.odgovor}}</p>
+                      <hr>
+                      <strong><i class="far fa-file-alt mr-1"></i>Ustanovljena dijagnoza tokom pregleda</strong>
+                      <p class="text-muted">Tokom pregleda doktor je ustanovio sljedeću dijagnozu: {{pregled.dijagnoza}}</p>
+                      <hr>
+                      <strong><i class="fa fa-medkit" aria-hidden="true" style="margin-right: 0.25rem;"></i>Propisana terapija</strong>
+                      <p class="text-muted">Doktor je odredio sljedeću terapiju: {{pregled.terapija}}</p>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</div>

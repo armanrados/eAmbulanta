@@ -1,0 +1,17 @@
+<div class="container my-5">
+    <h1>Zakaži novu posjetu</h1>
+<div class="row">
+    <div class="col-8">
+        <form #form="ngForm" (ngSubmit)="addPosjete()">
+            <div class="form-group">
+              <label for="napomena">Napomena</label>
+              <input type="text" class="form-control" id="napomena" name="napomena"  placeholder="Unesite napomenu" [(ngModel)]="addPosjetaRequest.napomena">
+              
+            </div>
+          
+            <button type="submit" class="btn btn-primary">Spasi</button>
+          </form>
+    </div>
+</div>
+
+</div>

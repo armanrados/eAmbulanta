@@ -1,0 +1,96 @@
+<div class="content-wrapper" style="min-height: 2080.4px;">
+  <section class="content-header">
+    <h1 class="heading">
+      Novosti
+    </h1>
+    <br *ngIf="this.authService.isAdministrator()">
+
+    <button *ngIf="this.authService.isAdministrator()" (click)="dodajNovostForm()" id="btnDodajNovost" type="button" class="btn btn-block bg-gradient-success" style="max-width: 200px; display: block">Dodaj novost
+    </button>
+    <div *ngIf="this.authService.isAdministrator()" id="divNovaNovost" class="container-fluid" style="display: none">
+      <div class="card card-primary">
+        <div class="card-header" style="background-color: #00b44e">
+          <h3 class="card-title" style="float: left;">Nova novost</h3>
+          <button type="button" (click)="dodajNovostForm()" class="btn btn-block btn-danger btn-sm" style="float: right; width: 30px; margin-top: 0">
+            <i class="fa fa-times" aria-hidden="true"></i>
+          </button>
+        </div>
+        <form>
+          <div class="card-body">
+            <div class="form-group" id="txtAreaNazivDiv">
+              <label>Naziv</label>
+              <textarea class="form-control" rows="1" placeholder="Naziv..." id="txtNazivNovost" style="border: grey 1px solid"></textarea>
+            </div>
+            <div class="form-group" id="txtAreaOpisDiv">
+              <label>Opis</label>
+              <textarea class="form-control" rows="2" placeholder="Opis..." id="txtOpisNovost" style="border: grey 1px solid"></textarea>
+            </div>
+            <div class="form-group" id="txtAreaSadrzajDiv">
+              <label>Sadržaj</label>
+              <textarea class="form-control" rows="5" placeholder="Sadržaj..." id="txtSadrzajNovost" style="border: grey 1px solid"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="pdfFajlUploadSlika">Dodaj sliku</label>
+              <div class="input-group">
+                <div class="custom-file" id="slikaFajlUploadDiv">
+                  <input (change)="onFileSelected()" type="file" style="border: grey 1px solid" class="custom-file-input" id="pdfFajlUploadSlika" accept="image/png, image/gif, image/jpeg">
+                  <label class="custom-file-label" for="pdfFajlUploadSlika" style="color: grey">Odaberite sliku</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button (click)="onUpload()" id="btnDodajNovostUpload" type="button" class="btn btn-block btn-primary btn-sm" style="width: 20%; float: left; background-color: #00b44e;">Dodaj</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <br *ngIf="this.authService.isAdministrator()">
+
+    <div class="container-fluid">
+      <div class="row" style="height: 100px; background-color: white; padding: 20px; border: grey 0.5px solid;">
+        <div id="pretrazivanjeDiv" style="height: 50%; width: 100%; background-color: #d3d3d3;">
+          <input type="text" style="width: 80%; float: left; height: 100%;" placeholder="Pretraži arhivu novosti...">
+          <button (click)="pretrazivanjeNovosti()" class="btn-primary" style="float: left; width: 20%; height: 100%;">Pretraži</button>
+        </div>
+        <div style="height: 50%; width: 100%; background-color: white; padding: 0.5rem 0">
+          <div id="sortNovosti">
+            Sortiraj:
+            <select id="selectSort" (change)="sortiraj()">
+              <option value="1">Najnovije</option>
+              <option value="2">Najstarije</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="content" style="padding: 0 5rem">
+    <div class="container-fluid">
+      <div [routerLink]="['/pregled-novost']" [queryParams]="{ id: novost.id}" *ngFor="let novost of novosti; let indexOfRow=index;" id="rowNovost" class="row" style="border: grey 0.5px solid; height: 200px; background-color: white; margin-bottom: 10px;">
+        <img style="width: 20%; height: 100%; float: left;" src="data:image/jpeg;base64,{{novost.slika}}">
+        <a style="width: 80%; height: 100%; padding: 1rem 1rem; font-size: 1.5rem; float: left;"><strong>{{novost.naziv}}</strong><br><br>{{novost.opis}}</a>
+      </div>
+      <!--Pagination<div *ngIf="novosti.length > 1" style="border: grey 1px solid; height: 100px; position: relative;">
+        <div style="text-align: center; border: grey 1px solid; border-radius: 10px; height: 30px; top: 50%; margin: 0; position: absolute; -ms-transform: translateY(-50%); transform: translateY(-50%); width: 100%;">
+          <div style="float: left; height: 100%; border: #9c3328 1px solid; padding: 3px;">
+            Prva stranica
+          </div>
+          <div style="float: left; height: 100%; border: #9c3328 1px solid; padding: 3px;">
+            Prethodna
+          </div>
+          <div *ngFor="5; let indexOfElement=index;" style="float: left; height: 100%; border: #9c3328 1px solid; padding: 3px 10px;">
+            {{indexOfElement+1}}
+          </div>
+          <div style="float: left; height: 100%; border: #9c3328 1px solid; padding: 3px;">
+            Sljedeća
+          </div>
+          <div style="float: left; height: 100%; border: #9c3328 1px solid; padding: 3px;">
+            Zadnja stranica
+          </div>
+        </div>
+      </div>-->
+    </div>
+  </section>
+</div>

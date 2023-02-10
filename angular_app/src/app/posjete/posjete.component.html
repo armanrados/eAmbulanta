@@ -1,0 +1,59 @@
+<div class="content-wrapper" style="min-height: 2080.4px;">
+    <section class="content-header">
+      <h1 class="heading">
+        Moje posjete
+      </h1>
+    </section>
+    
+    <section class="content">
+        <a routerLink="/nova-posjeta"><button id="btnDodajPojetu" type="button" class="btn btn-block bg-gradient-success" style="max-width: 200px; display: block">Dodaj posjetu
+        </button></a>
+      <br>
+      <div class="container-fluid" >
+        <div class="row">
+          <div class="card" style="width: 100%">
+            <div class="card-header" style="background-color: #00b44e" >
+              <h3 class="card-title" style="color: white">Lista mojih posjeta</h3>
+            </div>
+                <div class="card-body p-0" >
+              <table class="table table-striped" >
+                <thead>
+                <tr>
+                  <th>Napomena</th>
+                  <th>Odgovor</th>
+                  <th>Status</th>
+                  
+                </tr>
+                </thead>
+                <tbody id="PosjetaTable">
+                <tr id="posjetaRow" style="width: 100%;" *ngFor="let posjeta of Posjete | paginate: 
+                { itemsPerPage: 3, currentPage: p }; let indexOfRow=index;">
+                
+                  <td  id="posjetaOpisPregled">
+                    <textarea disabled style="width: 100%;"  cols="40">{{posjeta.napomena}}</textarea>
+                  </td>
+                  <td  id="posjetaOdgovorPregled">
+                    <textarea disabled style="width: 100%;" cols="40">{{posjeta.odgovor}}</textarea>
+                  </td>
+                  <td>{{posjeta.odobreno && 'Odobreno' || 'Odbijeno'}}</td>
+                 
+                </tr>
+                </tbody>
+              </table>
+             
+            </div>
+       
+          </div>
+        </div>
+        
+      
+      </div>
+     
+    </section>
+    <div>  <pagination-controls 
+      (pageChange)="p = $event" 
+      class="float-right">
+      </pagination-controls></div>
+     
+  </div>
+  

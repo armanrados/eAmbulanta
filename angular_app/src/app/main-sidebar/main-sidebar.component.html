@@ -1,0 +1,116 @@
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a routerLink="content-wrapper" class="brand-link">
+
+      <span class="brand-text font-weight-light">eAmbulanta</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+
+          <li *ngIf="authService.isLoggedIn() == false" class="nav-item">
+            <a routerLink="/login" class="nav-link">
+              <i class="nav-icon fas fa-user-circle"></i>
+              <p>
+                Prijavi se
+
+              </p>
+            </a>
+          </li>
+          <li *ngIf="authService.isLoggedIn()" class="nav-item">
+            <a routerLink="/profil" class="nav-link">
+              <i class="nav-icon fas fa-user-circle"></i>
+              <p>
+                Profil
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/content-wrapper" class="nav-link">
+              <i class="nav-icon fa fa-home"></i>
+              <p>
+                Naslovna
+
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/odluke" class="nav-link">
+              <i class="nav-icon fas fa-archive"></i>
+              <p>
+                Odluke
+
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/oglasi" class="nav-link">
+              <i class="nav-icon 	fas fa-bell"></i>
+              <p>
+                Oglasi
+
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="javne-nabavke" class="nav-link" >
+              <i class="nav-icon fas fa-hand-holding-usd"></i>
+              <p>
+                Javne nabavke
+
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item" *ngIf="this.authService.isLoggedIn()">
+            <a href="#" class="nav-link">
+              <i class="nav-icon far fa-calendar-alt"></i>
+              <p>
+                Termini
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item" *ngIf="this.authService.isPacijent()" >
+                <a routerLink="/zakazi-termin" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Zakaži termin</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a routerLink="/pregled-termina" class="nav-link" *ngIf="authService.isDoktor()">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Pregled termina</p>
+                </a>
+              </li>
+              <li class="nav-item" *ngIf="this.authService.isPacijent()">
+                <a routerLink="/posjete" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Moje posjete</p>
+                </a>
+              </li>
+              <li class="nav-item" *ngIf="authService.isMedicinskaSestraTehnicar()">
+                <a routerLink="/pregled-posjeta" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Pregled posjeta</p>
+                </a>
+              </li>
+         
+            </ul>
+          </li>
+
+        </ul>
+      </nav>
+
+
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>

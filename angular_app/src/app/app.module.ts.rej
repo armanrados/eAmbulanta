@@ -1,0 +1,8 @@
+diff a/UI/eAmbulanta/src/app/app.module.ts b/UI/eAmbulanta/src/app/app.module.ts	(rejected hunks)
+@@ -29,7 +29,6 @@
+   imports: [
+     BrowserModule,
+     AppRoutingModule,
+     HttpClientModule,
+     FormsModule
+   ],

@@ -1,0 +1,25 @@
+<div class="container my-5">
+    <h1>Uredi posjetu</h1>
+<div class="row">
+    <div class="col-8">
+        <form #form="ngForm" (ngSubmit)="updatePosjete()" >
+            <div class="form-group">
+                <label for="id">Broj posjete</label>
+                <input type="text" class="form-control" id="id" name="id"  readonly [(ngModel)]="posjetaDetalji.id">
+                
+              </div>
+            <div class="form-group">
+              <label for="odgovor">Odgovor</label>
+              <input type="text" class="form-control" id="odgovor" name="Odgovor"  placeholder="Unesite odgovor" [(ngModel)]="posjetaDetalji.odgovor">
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="odobreno" name="Odobreno" [(ngModel)]="posjetaDetalji.odobreno">
+                <label class="form-check-label" for="odobreno">Odobreno</label>
+              </div>
+          
+            <button type="submit" class="btn btn-primary">Spasi</button>
+          </form>
+    </div>
+</div>
+
+</div>

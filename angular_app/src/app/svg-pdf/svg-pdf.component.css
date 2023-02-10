@@ -1,0 +1,30 @@
+#content
+{
+  
+}
+#tabela 
+{
+    width: 100%;
+    margin-left: 10px;
+
+}
+input
+{
+    border-style: none;
+}
+
+button
+{
+    margin-left: 200px;
+  
+}
+textarea
+{
+    width: auto;
+    border-style: none;
+    white-space: pre-wrap;
+}
+#datum
+{
+    margin-left: 10px;
+}

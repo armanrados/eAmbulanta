@@ -1,0 +1,43 @@
+
+      <div id="content" #content >  
+    
+        <div style="width:594px;">  
+            
+            <div style="text-align: center;padding-right: 18px;">  
+                <h3 style="text-align: center;font-family: arial;"><strong>Potvrda eAmbulante</strong></h3>  
+            </div>  
+            <!-- <div style="background-color: #072a60;color: beige;padding-top: 2px;padding-bottom: 2px;">Order Information </div-->  
+            <div class="form-group">  
+                <table id="tabela" style="width:100%">  
+                    <tr>  
+                        <td style="width:25%"><span style="font-weight:700;">Ime:</span></td>  
+                        <td style="width:30%"><input type="text" id="fname" name="fname"></td>  
+                        <td style="width:25%"><label style="font-weight:700;">Ime izdavaca:</label></td>  
+                        <td style="width:30%"><input type="text" id="fname" name="fname"></td>  
+                    </tr>  
+                    <tr>  
+                        <td style="width:25%"><label style="font-weight:700">Prezime:</label></td>  
+                        <td style="width:30%"><input type="text" id="fname" name="fname"></td>  
+                        <td style="width:25%"><label style="font-weight:700">Prezime izdavaca:</label></td>  
+                        <td style="width:30%"><input type="text" id="fname" name="fname"></td>  
+                    </tr>  
+                    <tr>  
+                        <td style="width:25%"><label style="font-weight:700">JMBG:</label></td>  
+                        <td style="width:30%"><input type="text" id="fname" name="fname"></td>  
+                        <td style="width:25%"><label style="font-weight:700">Titula:</label></td>  
+                        <td style="width:30%"><input type="text" id="fname" name="fname"></td>  
+                    </tr>  
+                    <tr>  
+                        <td style="width:25%"><label style="font-weight:700">Datum rodjenja:</label></td>  
+                        <td style="width:30%"><input type="text" id="fname" name="fname"></td>  
+                        <td style="width:25%"><label style="font-weight:700">Datum izdavanja:</label></td>  
+                        <td style="width:30%"><label>{{currentDate | date: 'dd/MM/yyyy'}}</label></td>  
+                    </tr>  
+                   
+                </table>  
+            </div>  
+            
+        </div>  
+    </div>  
+   
+<button (click)="makePDF()" class="btn btn-block bg-gradient-success" style="max-width: 200px; display: block">Preuzmi</button>

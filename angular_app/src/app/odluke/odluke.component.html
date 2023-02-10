@@ -1,0 +1,87 @@
+<div class="content-wrapper" style="min-height: 2080.4px;">
+  <section class="content-header">
+    <h1 class="heading">
+      Odluke
+    </h1>
+  </section>
+  <section class="content">
+    <button *ngIf="this.authService.isAdministrator()" (click)="dodajOdlukaForm()" id="btnDodajOdluku" type="button" class="btn btn-block bg-gradient-success" style="max-width: 200px; display: block">Dodaj odluku
+    </button>
+    <div *ngIf="this.authService.isAdministrator()" id="divNovaOdluka" class="container-fluid" style="display: none">
+      <div class="card card-primary">
+        <div class="card-header" style="background-color: #00b44e">
+          <h3 class="card-title" style="float: left;">Nova odluka</h3>
+          <button type="button" (click)="dodajOdlukaForm()" class="btn btn-block btn-danger btn-sm" style="float: right; width: 30px; margin-top: 0">
+            <i class="fa fa-times" aria-hidden="true"></i>
+          </button>
+        </div>
+        <form>
+          <div class="card-body" >
+            <div class="form-group" id="txtAreaOpisDiv">
+              <label>Opis</label>
+              <textarea class="form-control" rows="3" placeholder="Opis..." id="txtOpisOdluka" style="border: grey 1px solid"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="pdfFajlUploadOdluka">Dodaj PDF</label>
+              <div class="input-group">
+                <div class="custom-file" id="pdfFajlUploadDiv">
+                  <input (change)="onFileSelected()" type="file" style="border: grey 1px solid" class="custom-file-input" id="pdfFajlUploadOdluka" accept="application/pdf">
+                  <label class="custom-file-label" for="pdfFajlUploadOdluka" style="color: grey">Odaberite PDF fajl</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button (click)="onUpload()" id="btnDodajOdlukuUpload" type="button" class="btn btn-block btn-primary btn-sm" style="width: 20%; float: left; background-color: #00b44e;">Dodaj</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <br>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="card" style="width: 100%">
+          <div class="card-header" style="background-color: #00b44e">
+            <h3 class="card-title" style="color: white">Lista odluka</h3>
+          </div>
+          <div class="card-body p-0">
+            <table class="table table-striped">
+              <thead>
+              <tr>
+                <th>Opis</th>
+                <th>PDF</th>
+                <th *ngIf="this.authService.isAdministrator()" style="width: 40px">Opcije</th>
+              </tr>
+              </thead>
+              <tbody id="OdlukaTable">
+              <tr id="odlukaRow" style="width: 100%;" *ngFor="let odluka of Odluke; let indexOfRow=index;">
+                <td *ngIf="this.authService.isAdministrator()" style="display: none">
+                  <textarea style="width: 100%" type="text" id="odlukaOpisEdit"></textarea>
+                  <br>
+                  <button (click)="updateOdlukePozovi(odluka, indexOfRow)" type="button" class="btn btn-block bg-gradient-success btn-flat">Spremi</button>
+                </td>
+                <td style="width: 100%" id="odlukaOpisPregled">
+                  <textarea disabled style="width: 100%">{{odluka.opis}}</textarea>
+                </td>
+                <td>
+                  <a (click)="otvoriPdf(odluka)" class="btn btn-app" style="margin: 0">
+                    <i class="fa fa-file" aria-hidden="true"></i>Otvori
+                  </a>
+                </td>
+                <td *ngIf="this.authService.isAdministrator()">
+                  <button (click)="editEnabled(indexOfRow, odluka)" id="btnUredi" type="button" class="btn btn-block bg-gradient-info btn-lg">
+                    <i class="fa fa-bars" aria-hidden="true"></i>
+                  </button>
+                  <button (click)="deleteOdlukaPozovi(odluka.id)" type="button" class="btn btn-block bg-gradient-danger btn-lg">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                  </button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

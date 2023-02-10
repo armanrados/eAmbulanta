@@ -1,0 +1,67 @@
+<div class="content-wrapper" style="min-height: 2080.4px;">
+    <section class="content-header">
+      <h1 class="heading">
+        Pregled posjeta
+      </h1>
+    </section>
+    
+    <section class="content">
+    
+      <div class="container-fluid">
+        <div class="row">
+          <div class="card" style="width: 100%">
+            <div class="card-header" style="background-color: #00b44e">
+              <h3 class="card-title" style="color: white">Lista svih posjeta</h3>
+            </div>
+            <div class="card-body p-0">
+              <table class="table table-striped">
+                <thead>
+                <tr>
+                  <th>Napomena</th>
+                  <th>Odgovor</th>
+                  <th>Status</th>
+                  <th style="width: 40px">Opcije</th>
+                </tr>
+                </thead>
+                <tbody id="PosjetaTable">
+                <tr id="posjetaRow" style="width: 100%;" *ngFor="let posjeta of Posjete | paginate: 
+                { itemsPerPage: 3, currentPage: p }; let indexOfRow=index;">
+                
+                  <td  id="posjetaOpisPregled">
+                    <textarea disabled style="width: 100%;"  cols="40">{{posjeta.napomena}}</textarea>
+                  </td>
+                  <td  id="posjetaOdgovorPregled">
+                    <textarea disabled style="width: 100%;" cols="40">{{posjeta.odgovor}}</textarea>
+                  </td>
+                  <td>{{posjeta.odobreno && 'Odobreno' || 'Odbijeno'}}</td>
+                  <td>
+                    <a [routerLink]="['/uredi-posjetu',posjeta.id]"><button id="btnUredi" type="button" class="btn btn-block bg-gradient-info btn-lg">
+                        <i class="fa fa-bars" aria-hidden="true"></i>
+                      </button></a>
+                      <button (click)="deletePosjete(posjeta.id)" type="button" class="btn btn-block bg-gradient-danger btn-lg">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                      </button>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div>
+    <pagination-controls 
+    (pageChange)="p = $event" 
+    class="float-right">
+    </pagination-controls></div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <app-svg-pdf></app-svg-pdf>
+  </div>
+  

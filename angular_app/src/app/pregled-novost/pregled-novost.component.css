@@ -1,0 +1,11 @@
+
+h1{
+  text-align: center;
+}
+h1.heading {
+  color: #fff;
+  font-size: 3.5em;
+  font-weight: 900;
+  margin: 0 0 0;
+  color: #505050;
+}

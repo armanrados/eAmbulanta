@@ -1,0 +1,98 @@
+<div class="content-wrapper" style="min-height: 2080.4px;">
+  <div class="container">
+    <div class="row" style="display: block; position: relative; padding-top: 3%; padding-bottom: 3%">
+
+          <div class="card card-primary" style="width: 100%; height: auto;margin: 0 auto; position: relative;">
+            <div class="card-header">
+              <h3 class="card-title">Registracija</h3>
+            </div>
+
+
+            <form [formGroup]="service.formModel" autocomplete="off" (submit)="onSubmit()">
+              <div class="card-body">
+                <div class="col-md-6" style="width: 50%; float: left">
+                <div class="form-group required">
+                  <label for="ime">Ime</label>
+                  <input type="text" class="form-control form-control-border" formControlName="ime" id="ime" placeholder="Unesite vaše ime">
+                  <label class="text-danger" *ngIf="service.formModel.get('ime')?.touched && service.formModel.get('ime')?.errors?.['required']">Ime je obavezno!</label>
+                  <label class="text-danger" *ngIf="service.formModel.get('ime')?.touched && service.formModel.get('ime')?.errors?.['pattern']">Ime smije sadržavati samo slova, te mora biti dužine od 2 do 20 slova, prvo slovo veliko, ostala mala!</label>
+                </div>
+                <div class="form-group required">
+                  <label for="prezime">Prezime</label>
+                  <input type="text" class="form-control form-control-border" formControlName="prezime" id="prezime" placeholder="Unesite vaše prezime">
+                  <label class="text-danger" *ngIf="service.formModel.get('prezime')?.touched && service.formModel.get('prezime')?.errors?.['required']">Prezime je obavezno!</label>
+                  <label class="text-danger" *ngIf="service.formModel.get('prezime')?.touched && service.formModel.get('prezime')?.errors?.['pattern']">Prezime smije sadržavati samo slova, te mora biti dužine od 2 do 30 slova, prvo slovo veliko, ostala mala!</label>
+                </div>
+                  <div class="form-group required">
+                    <label for="emailAdresa">Email adresa</label>
+                    <input type="email" class="form-control form-control-border" formControlName="emailAdresa" id="emailAdresa" placeholder="Unesite email">
+                    <label class="text-danger" *ngIf="service.formModel.get('emailAdresa')?.touched && service.formModel.get('emailAdresa')?.errors?.['required']">Email je obavezan!</label>
+                    <label class="text-danger" *ngIf="service.formModel.get('emailAdresa')?.touched && service.formModel.get('emailAdresa')?.errors?.['email']">Nepostojeća email adresa!</label>
+                  </div>
+                  <div class="form-group required">
+                    <label for="korisnickoIme">Korisničko ime</label>
+                    <input type="text" class="form-control form-control-border" formControlName="korisnickoIme" id="korisnickoIme" placeholder="Unesite korisničko ime">
+                    <label class="text-danger" *ngIf="service.formModel.get('korisnickoIme')?.touched && service.formModel.get('korisnickoIme')?.errors?.['required']">Korisničko ime je obavezno!</label>
+                    <label class="text-danger" *ngIf="service.formModel.get('korisnickoIme')?.touched && service.formModel.get('korisnickoIme')?.errors?.['pattern']">Korisničko ime ne smije sadržavati ništa osim velikih i malih slova(bez š,đ,ž,č,ć) i brojeva, te mora biti dužine od 5 do 15 karaktera!</label>
+                  </div>
+                  <div formGroupName="lozinke">
+                  <div class="form-group required">
+                    <label for="lozinka1">Lozinka</label>
+                    <i (click)="x.type=x.type=='password'?'text':'password'" class="fa fa-eye-slash" aria-hidden="true" style="margin-left: 2%"></i>
+                    <input #x type="password" class="form-control form-control-border" formControlName="lozinka1" id="lozinka1" placeholder="Unesite lozinku">
+                    <label class="text-danger" *ngIf="service.formModel.get('lozinke.lozinka1')?.touched && service.formModel.get('lozinke.lozinka1')?.errors?.['required']">Lozinka je obavezna!</label>
+                    <label class="text-danger" *ngIf="service.formModel.get('lozinke.lozinka1')?.touched && service.formModel.get('lozinke.lozinka1')?.errors?.['pattern']">Lozinka mora biti minimalno 8 karaktera duga, sadržavati velika slova, mala slova te brojeve!</label>
+                  </div>
+                    <div class="form-group required">
+                      <label for="lozinka2">Potvrda lozinke</label>
+                      <i (click)="p.type=p.type=='password'?'text':'password'" class="fa fa-eye-slash" aria-hidden="true" style="margin-left: 2%"></i>
+                      <input #p type="password" class="form-control form-control-border" formControlName="lozinka2" id="lozinka2" placeholder="Ponovo unesite lozinku">
+                      <label class="text-danger" *ngIf="service.formModel.get('lozinke.lozinka2')?.touched && service.formModel.get('lozinke.lozinka2')?.errors?.['passwordMismatch']">Lozinke se ne poklapaju!</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6" style="width: 50%; float: left">
+                  <div class="form-group required">
+                    <label for="jmbg">Jedinstveni matični broj - JMBG</label>
+                    <input type="text" class="form-control form-control-border" formControlName="jmbg" id="jmbg" pattern="[0-9]{13}" placeholder="Primjer: 1234567891234">
+                    <label class="text-danger" *ngIf="service.formModel.get('jmbg')?.touched && service.formModel.get('jmbg')?.errors?.['required']">Matični broj je obavezan!</label>
+                    <label class="text-danger" *ngIf="service.formModel.get('jmbg')?.touched && service.formModel.get('jmbg')?.errors?.['pattern']">Nepostojeći matični broj!</label>
+                  </div>
+                  <div class="form-group required">
+                    <label for="telefon">Telefon</label>
+                    <input type="tel" class="form-control form-control-border" formControlName="telefon" id="telefon" pattern="[0-9]{9,10}" placeholder="Primjer: 0601234567">
+                    <label class="text-danger" *ngIf="service.formModel.get('telefon')?.touched && service.formModel.get('telefon')?.errors?.['required']">Telefon je obavezan!</label>
+                    <label class="text-danger" *ngIf="service.formModel.get('telefon')?.touched && service.formModel.get('telefon')?.errors?.['pattern']">Nepostojeći broj! Primjer pravilno unesenog broja: 0601234567</label>
+                  </div>
+                  <div class="form-group required">
+                    <label for="datumRodjenja">Datum rođenja</label>
+                    <input type="date" class="form-control form-control-border" formControlName="datumRodjenja" id="datumRodjenja">
+                    <label class="text-danger" *ngIf="service.formModel.get('datumRodjenja')?.touched && service.formModel.get('datumRodjenja')?.errors?.['required']">Datum rođenja je obavezan!</label>
+                  </div>
+                  <div class="form-group required">
+                    <label for="adresa">Adresa stanovanja</label>
+                    <input type="text" class="form-control form-control-border" formControlName="adresa" id="adresa" placeholder="Unesite naziv ulice">
+                    <label class="text-danger" *ngIf="service.formModel.get('adresa')?.touched && service.formModel.get('adresa')?.errors?.['required']">Adresa je obavezna!</label>
+                  </div>
+                  <div class="form-group required">
+                    <label for="longitude">Latituda</label>
+                    <input type="text" class="form-control form-control-border" formControlName="longitude" id="longitude" placeholder="43.3231">
+                    <label class="text-danger" *ngIf="service.formModel.get('longitude')?.touched && service.formModel.get('longitude')?.errors?.['required']">Latituda je obavezna!</label>
+                    
+                   
+                  </div>
+                  <div class="form-group required">
+                    <label for="latitude">Longituda</label>
+                    <input type="text" class="form-control form-control-border" formControlName="latitude" id="latitude" placeholder="18.11">
+                    <label class="text-danger" *ngIf="service.formModel.get('latitude')?.touched && service.formModel.get('latitude')?.errors?.['required']">Longituda je obavezna!</label>
+                  </div>
+              </div>
+              </div>
+              <div class="card-footer" style="text-align: center">
+                <button type="submit" class="btn btn-block bg-gradient-primary btn-lg" style="width: 30%;" [disabled]="!service.formModel.valid">Kreiraj račun</button>
+              </div>
+            </form>
+      </div>
+          </div>
+  </div>
+</div>

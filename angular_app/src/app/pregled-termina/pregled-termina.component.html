@@ -1,0 +1,106 @@
+<div class="content-wrapper" style="min-height: 2080.4px;">
+  <section class="content-header">
+    <h1 class="heading">
+      Pregled termina
+    </h1>
+  </section>
+  <section class="content">
+    
+    <div class="container-fluid">
+    <div style="height: 540px;" class="row">
+      <div class="card card-primary" style="width: 49%;  height: 500px; margin-right: 2%;">
+        <div class="card-header" style="background-color: #1fb4b9">
+          <h3 style="margin-bottom: 0;" class="card-title">Termini danas</h3>
+        </div>
+        <div class="card-body p-0" style="height: 500px;">
+          <table class="table table-sm" id="tabelaTerminiDanas">
+            <thead>
+            <tr style="display: table; width: 100%;">
+              <th>Termin</th>
+            </tr>
+            </thead>
+            <tbody id="tbodyScroll1" style="display: block; height: 410px; overflow-y: scroll;">
+            <tr *ngFor="let ter of terminiDanas;let indexOfElement=index;" style="border-bottom: #d4dbd2 1px solid; display: table; width: 100%;">
+              <td style="width: 100%; padding-top: 1rem">
+                <div class="card card-primary collapsed-card"style="margin-bottom: 1rem; width: 100%;">
+                  <div class="card-header">
+                    <h3 style="margin-bottom: 0;" class="card-title">Termin {{ter.datum}} {{ter.vrijeme}} - {{ter.pacijentId}}</h3>
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="maximize"><i style="width: 20px;" class="fas fa-expand"></i>
+                      </button>
+                    </div>
+                  </div>
+                    <div class="card-body" style="display: none; padding: 0.75rem;">
+                      <div class="content">
+                        ealo
+                      </div>
+                    </div>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+<!-- Tabela odobrenja ------------------------------------------------------------------------>
+
+      <div class="card card-primary" style="width: 49%;  height: 500px;">
+        <div class="card-header" style="background-color: #1fb4b9">
+          <h3 style="margin-bottom: 0;" class="card-title">Termini koji čekaju na odobrenje</h3>
+        </div>
+        <div class="card-body p-0" style="height: 500px;">
+          <table class="table table-sm" id="tabelaTerminiKojiCekajuNaOdobrenje">
+            <thead>
+              <tr style="display: table; width: 100%;">
+                <th>Termin</th>
+                <th>Odobri</th>
+                <th>Odbij</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyScroll" style="display: block; height: 410px; overflow-y: scroll;">
+            <tr *ngFor="let ter of terminiKojiCekajuNaOdobrenjeDoktor;let indexOfElement=index;" style="border-bottom: #d4dbd2 1px solid; display: table; width: 100%;">
+              <td style="width: 80%;">
+              <div style="margin-top: 15px;" class="card card-primary collapsed-card">
+                <div class="card-header">
+                  <h3 style="margin-bottom: 0;" class="card-title">Termin {{ter.datum}} {{ter.vrijeme}}</h3>
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+                    </button>
+                  </div>
+
+                </div>
+
+                <div class="card-body" style="display: none;">
+                  The body of the card
+                </div>
+
+              </div>
+              </td>
+              <td>
+                <button (click)="pozivOdobriPregled(indexOfElement)" style="margin-top: 15px;" type="button" class="btn btn-block bg-gradient-success btn-lg">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </button>
+              </td>
+              <td>
+                <button style="margin-top: 15px;" type="button" class="btn btn-block bg-gradient-danger btn-lg">
+                  <i style="width: 20px;" class="fa fa-times" aria-hidden="true"></i>
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    </div>
+
+  </section>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <app-svg-pdf></app-svg-pdf>
+</div>
